@@ -43,7 +43,7 @@ namespace BlogAPI.Web.Controllers
 
             if (result.Succeeded)
             {
-                var user = new ApplicationUser()
+                var applicationUser = new ApplicationUser()
                 {
                     ApplicationUserId = applicationUserIdentity.ApplicationUserId,
                     Username = applicationUserIdentity.Username,
@@ -52,15 +52,42 @@ namespace BlogAPI.Web.Controllers
                     Token = _tokenService.CreateToken(applicationUserIdentity)
                 };
 
-                return Ok(user);
+                return Ok(applicationUser);
             }
 
             return BadRequest(result.Errors);
         }
 
-        //[HttpPost]
-        //[Route("login")]
+        [HttpPost]
+        [Route("login")]
+        public async Task<ActionResult<ApplicationUser>> Login(ApplicationUserLogin applicationUserLogin)
+        {
+            var applicationUserIdentity = await _userManager.FindByNameAsync(applicationUserLogin.Username);
 
+            if (applicationUserIdentity != null)
+            {
+                var result = await _signInManager.CheckPasswordSignInAsync(
+                                                applicationUserIdentity,
+                                                applicationUserLogin.Password,
+                                                false);
+
+                if (result.Succeeded)
+                {
+                    var applicationUser = new ApplicationUser()
+                    {
+                        ApplicationUserId = applicationUserIdentity.ApplicationUserId,
+                        Username = applicationUserIdentity.Username,
+                        Email = applicationUserIdentity.Email,
+                        Fullname = applicationUserIdentity.Fullname,
+                        Token = _tokenService.CreateToken(applicationUserIdentity)
+                    };
+
+                    return Ok(applicationUser);
+                }
+            }
+
+            return BadRequest("Login failed attempt");
+        }
 
     }
 }
