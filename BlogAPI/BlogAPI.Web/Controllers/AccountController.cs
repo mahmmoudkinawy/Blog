@@ -1,0 +1,66 @@
+﻿using BlogAPI.Models.Account;
+using BlogAPI.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
+
+namespace BlogAPI.Web.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AccountController : ControllerBase
+    {
+        private readonly ITokenService _tokenService;
+        private readonly UserManager<ApplicationUserIdentity> _userManager;
+        private readonly SignInManager<ApplicationUserIdentity> _signInManager;
+
+        public AccountController(
+            ITokenService tokenService,
+            UserManager<ApplicationUserIdentity> userManager,
+            SignInManager<ApplicationUserIdentity> signInManager)
+        {
+            _tokenService = tokenService ??
+                throw new ArgumentNullException(nameof(tokenService));
+            _userManager = userManager ??
+                throw new ArgumentNullException(nameof(userManager));
+            _signInManager = signInManager ??
+                throw new ArgumentNullException(nameof(userManager));
+        }
+
+        [HttpPost]
+        [Route("register")]
+        public async Task<ActionResult<ApplicationUser>> Register(ApplicationUserCreate applicationUserCreate)
+        {
+            var applicationUserIdentity = new ApplicationUserIdentity()
+            {
+                Username = applicationUserCreate.Username,
+                Email = applicationUserCreate.Email,
+                Fullname = applicationUserCreate.Fullname
+            };
+
+            var result = await _userManager.CreateAsync(applicationUserIdentity, applicationUserCreate.Password);
+
+            if (result.Succeeded)
+            {
+                var user = new ApplicationUser()
+                {
+                    ApplicationUserId = applicationUserIdentity.ApplicationUserId,
+                    Username = applicationUserIdentity.Username,
+                    Email = applicationUserIdentity.Email,
+                    Fullname = applicationUserIdentity.Fullname,
+                    Token = _tokenService.CreateToken(applicationUserIdentity)
+                };
+
+                return Ok(user);
+            }
+
+            return BadRequest(result.Errors);
+        }
+
+        //[HttpPost]
+        //[Route("login")]
+
+
+    }
+}
