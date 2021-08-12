@@ -86,7 +86,7 @@ namespace BlogAPI.Web.Controllers
                 }
             }
 
-            return BadRequest("Login failed attempt");
+            return BadRequest("Invalid failed attempt");
         }
 
     }
