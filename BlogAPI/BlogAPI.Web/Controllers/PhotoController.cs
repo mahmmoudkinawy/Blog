@@ -76,5 +76,45 @@ namespace BlogAPI.Web.Controllers
             return Ok(photo);
         }
 
+
+        [Authorize]
+        [HttpDelete]
+        [Route("{photoId}")]
+        public async Task<ActionResult<int>> Delete(int photoId)
+        {
+            int applicationUserId = int.Parse(User.Claims.First(i => i.Type == JwtRegisteredClaimNames.NameId).Value);
+
+            var foundPhoto = await _photoRepository.GetAsync(photoId);
+
+            if (foundPhoto != null)
+            {
+                if (foundPhoto.ApplicationUserId == applicationUserId)
+                {
+                    var blogs = await _blogRepository.GetAllByUserIdAsync(applicationUserId);
+
+                    var usedInBlog = blogs.Any(b => b.PhotoId == photoId);
+
+                    if (usedInBlog)
+                        return BadRequest("Cannot remove photo as it is being used in published blog(s).");
+
+                    var deleteResult = await _photoService.DeletePhotoAsync(foundPhoto.PublicId);
+
+                    if (deleteResult.Error != null)
+                        return BadRequest(deleteResult.Error.Message);
+
+                    var affectRows = await _photoRepository.DeleteAsync(foundPhoto.PhotoId);
+
+                    return Ok(affectRows);
+                }
+                else
+                {
+                    return BadRequest("Photo was not uploaded by the current user.");
+                }
+            }
+
+            return BadRequest("Photo does not exist.");
+
+        }
+
     }
 }
