@@ -12,7 +12,7 @@ import { PagedResult } from '../models/blog/paged-result.model';
 })
 export class BlogService {
 
-  private apiURL = environment.webApi;
+  private apiURL = environment.webApi + '/Blog';
 
   constructor(private http: HttpClient) { }
 
@@ -27,19 +27,19 @@ export class BlogService {
   }
 
   get(blogId: number): Observable<Blog> {
-    return this.http.get<Blog>(`${this.apiURL}/Blog/${blogId}`);
+    return this.http.get<Blog>(`${this.apiURL}/${blogId}`);
   }
 
   getByApplicationUserId(applicationUserId: number): Observable<Blog[]> {
-    return this.http.get<Blog[]>(`${this.apiURL}/Blog/user/${applicationUserId}`);
+    return this.http.get<Blog[]>(`${this.apiURL}/user/${applicationUserId}`);
   }
 
   getMostFamous(): Observable<Blog[]> {
-    return this.http.get<Blog[]>(`${this.apiURL}/Blog/famous`);
+    return this.http.get<Blog[]>(`${this.apiURL}/famous`);
   }
 
   delete(blogId: number): Observable<number> {
-    return this.http.delete<number>(`${this.apiURL}/Blog/${blogId}`);
+    return this.http.delete<number>(`${this.apiURL}/${blogId}`);
   }
 
 }
