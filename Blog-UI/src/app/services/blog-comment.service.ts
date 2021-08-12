@@ -10,16 +10,16 @@ import { BlogComment } from '../models/blog-comment/blog-comment.model';
 })
 export class BlogCommentService {
 
-  private apiURL = environment.webApi;
+  private apiURL = environment.webApi + '/BlogComment';
 
   constructor(private http: HttpClient) { }
 
   create(model: BlogCommentCreate): Observable<BlogComment> {
-    return this.http.post<BlogComment>(`${this.apiURL}/BlogComment`, model);
+    return this.http.post<BlogComment>(`${this.apiURL}`, model);
   }
 
   delete(blogCommentId: number): Observable<number> {
-    return this.http.delete<number>(`${this.apiURL}/BlogComment/${blogCommentId}`);
+    return this.http.delete<number>(`${this.apiURL}/${blogCommentId}`);
   }
 
   getAll(blogId: number) : Observable<BlogComment[]> {
