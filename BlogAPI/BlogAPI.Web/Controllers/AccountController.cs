@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlogAPI.Web.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class AccountController : ControllerBase
+    public class AccountController : BaseApiController
     {
         private readonly ITokenService _tokenService;
         private readonly UserManager<ApplicationUserIdentity> _userManager;
