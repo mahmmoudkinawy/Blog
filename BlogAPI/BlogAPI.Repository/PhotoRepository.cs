@@ -81,13 +81,17 @@ namespace BlogAPI.Repository
 
             int newPhotoId;
 
-            using(var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+            using (var connection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
             {
                 await connection.OpenAsync();
 
                 newPhotoId = await connection.ExecuteScalarAsync<int>(
                     "Photo_Insert",
-                    new { Photo = dataTable.AsTableValuedParameter("dbo.PhotoType") },
+                    new
+                    {
+                        Photo = dataTable.AsTableValuedParameter("dbo.PhotoType"),
+                        ApplicationUserId = applicationUserId
+                    },
                     commandType: CommandType.StoredProcedure);
             }
 
