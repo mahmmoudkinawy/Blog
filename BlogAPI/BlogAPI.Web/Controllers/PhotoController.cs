@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,6 +51,27 @@ namespace BlogAPI.Web.Controllers
             };
 
             var photo = await _photoRepository.InsertAsync(photoCreate, applicationUserId);
+
+            return Ok(photo);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<List<Photo>>> GetByApplicationUserId()
+        {
+            int applicationUserId = int.Parse(User.Claims.First(i => i.Type == JwtRegisteredClaimNames.NameId).Value);
+
+            var photos = await _photoRepository.GetAllByUserIdAsync(applicationUserId);
+
+            return Ok(photos);
+        }
+
+
+        [HttpGet]
+        [Route("{photoId}")]
+        public async Task<ActionResult<Photo>> Get(int photoId)
+        {
+            var photo = await _photoRepository.GetAsync(photoId);
 
             return Ok(photo);
         }
