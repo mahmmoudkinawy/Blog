@@ -13,7 +13,7 @@ import { ApplicationUser } from '../models/account/application-user.model';
 })
 export class AccountService {
 
-  private apiURL = environment.webApi;
+  private apiURL = environment.webApi + '/Account';
 
   private currentUserSubject$: BehaviorSubject<ApplicationUser>;
 
@@ -24,7 +24,7 @@ export class AccountService {
   }
 
   login(model: ApplicationUserLogin): Observable<ApplicationUser> {
-    return this.http.post(`${this.apiURL}/Account/login`, model).pipe(
+    return this.http.post(`${this.apiURL}/login`, model).pipe(
       map((user: ApplicationUser) => {
 
         if(user){
@@ -39,7 +39,7 @@ export class AccountService {
 
 
   register(model: ApplicationUserCreate) : Observable<ApplicationUser> {
-    return this.http.post(`${this.apiURL}/Account/register`, model).pipe(
+    return this.http.post(`${this.apiURL}/register`, model).pipe(
       map((user: ApplicationUser) => {
 
         if(user) {
