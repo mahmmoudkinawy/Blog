@@ -3,6 +3,7 @@ using BlogAPI.Models.Account;
 using BlogAPI.Models.Settings;
 using BlogAPI.Repository;
 using BlogAPI.Services;
+using BlogAPI.Web.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -90,14 +91,24 @@ namespace BlogAPI.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.ConfigureExecptionHandler();
+
             app.UseRouting();
+
+            if (env.IsDevelopment())
+                app.UseCors(options =>
+                            options.AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowAnyOrigin());
+            else
+                app.UseCors();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }
