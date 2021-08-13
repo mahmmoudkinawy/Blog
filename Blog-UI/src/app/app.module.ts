@@ -4,6 +4,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,10 +52,12 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),
-    HttpClientModule
+    CollapseModule.forRoot(),
+    BsDropdownModule.forRoot()
   ],
   providers: [
     { provide:  HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
