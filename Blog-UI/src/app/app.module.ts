@@ -50,7 +50,9 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ToastrModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right'
+    }),
     HttpClientModule
   ],
   providers: [
