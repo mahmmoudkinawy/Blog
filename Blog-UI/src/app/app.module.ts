@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SummaryPipe } from './pipes/summary.pipe';
 import { BlogComponent } from './components/blog-components/blog/blog.component';
 import { BlogCardComponent } from './components/blog-components/blog-card/blog-card.component';
@@ -48,6 +50,7 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ToastrModule,
     HttpClientModule
   ],
   providers: [
