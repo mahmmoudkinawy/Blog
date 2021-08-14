@@ -17,7 +17,7 @@ export class BlogService {
   constructor(private http: HttpClient) { }
 
   create(model: BlogCreate): Observable<Blog> {
-    return this.http.post<Blog>(`${this.apiURL}/Blog`, model);
+    return this.http.post<Blog>(`${this.apiURL}`, model);
   }
 
   getAll(blogPaging: BlogPaging): Observable<PagedResult<Blog>> {
