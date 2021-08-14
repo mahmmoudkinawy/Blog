@@ -11,7 +11,7 @@
                     <input type="text" class="form-control form-control-lg" [ngClass]="{'is-invalid': hasErrors('username') && isTouched('username'),'is-valid': !hasErrors('username') && isTouched('username')}" formControlName="username" placeholder="Username">
 
                     <div *ngIf="hasError('username', 'required')" class="invalid-feedback">
-                        Username required
+                        Username is required
                     </div>
                     <div *ngIf="hasError('username', 'minlength') || hasError('username','maxlength')" class="invalid-feedback">
                         Must be between 5-20 characters
@@ -22,7 +22,7 @@
                     <input type="password" class="form-control form-control-lg" [ngClass]="{'is-invalid': hasErrors('password') && isTouched('password'),'is-valid': !hasErrors('password') && isTouched('password')}" formControlName="password" placeholder="Password">
 
                     <div *ngIf="hasError('password', 'required')" class="invalid-feedback">
-                        Password required
+                        Password is required
                     </div>
                     <div *ngIf="hasError('password', 'minlength') || hasError('password','maxlength')" class="invalid-feedback">
                         Must be between 10-50 characters
