@@ -16,9 +16,9 @@
 
     </ng-template>
 
-    <ng-template [ngIf]="userBlogs" [ngIfElse]="noBlogs">
+    <ng-template [ngIf]="userBlogs.length >0" [ngIfElse]="noBlogs">
 
-        <button class="btn btn-lg btn-outline-primary mt-4 mb-4" (click)="createBlogs()">
+        <button class="btn btn-lg btn-outline-primary mt-4 mb-4" (click)="createBlog()">
             New Blog
         </button>
 
