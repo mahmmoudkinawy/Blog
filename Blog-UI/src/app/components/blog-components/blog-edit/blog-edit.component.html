@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <button class="btn bg-primary text-light mr-2" [disabled]="!blogForm.valid && !!blogForm.pristine">Save</button>
+        <button class="btn bg-primary text-light mr-2" [disabled]="!blogForm.valid && !!blogForm.pristine"><i class="fas fa-save"></i> Save</button>
         <button class="btn bg-danger text-light" *ngIf="!!getPhoto(blogForm.get('photoId').value)">Detach Photo</button>
 
     </form>
