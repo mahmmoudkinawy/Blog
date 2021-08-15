@@ -54,7 +54,7 @@ export class CommentsComponent implements OnInit {
     });
   }
 
-  replayComment(comment: BlogCommentViewModel) {
+  replyComment(comment: BlogCommentViewModel) {
     let replyComment: BlogCommentViewModel = {
       parentBlogCommentId: comment.parentBlogCommentId,
       content: "",
