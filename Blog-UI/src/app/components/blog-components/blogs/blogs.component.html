@@ -20,6 +20,6 @@
 
 <div class="container mt-5" *ngIf="pagedBlogResult?.totalCount > 0">
     <div class="d-flex justify-content-center">
-        <pagination [boundaryLinks]="true" [maxSize]="10" [itemsPerPage]="6" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo" lastText="&raquo" [totalItems]="pagedBlogResult.totalCount" (pageChanged)="pageChanged($event)"></pagination>
+        <pagination [boundaryLinks]="true" [maxSize]="10" [itemsPerPage]="6" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" [totalItems]="pagedBlogResult.totalCount" (pageChanged)="pageChanged($event)"></pagination>
     </div>
 </div>
