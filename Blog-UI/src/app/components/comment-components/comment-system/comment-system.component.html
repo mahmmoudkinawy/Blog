@@ -1,1 +1,9 @@
-<p>comment-system works!</p>
+<ng-container *ngIf="accountService.isLoggedIn()">
+
+    <div class="mb-3">
+        <app-comment-box [comment]="standAloneComment" (commentSaved)="onCommentSaved($event)"></app-comment-box>
+    </div>
+
+</ng-container>
+
+<!-- <app-comments [comments]="blogCommentViewModels" *ngIf="!!blogCommentViewModels"></app-comments> -->
