@@ -59,7 +59,7 @@ export class BlogEditComponent implements OnInit {
 
   getPhoto(photoId: number) {
     for(let i=0 ; i<this.userPhotos.length ; i++) {
-      if(this.userPhotos[i].photoId = photoId) {
+      if(this.userPhotos[i].photoId === photoId) {
         return this.userPhotos[i];
       }
     }
